@@ -1,36 +1,162 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CNP TCG Battle Tracker
 
-## Getting Started
+CNP トレカのバトル戦績を記録・管理する Web アプリケーションです。デッキ管理から戦績分析まで、プレイヤーの成長をサポートします。
 
-First, run the development server:
+## 🎯 主な機能
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### バトル記録管理
+
+- 戦績の詳細記録（勝敗、使用デッキ、対戦相手デッキなど）
+- 先攻・後攻の記録
+- イベント名やメモの記録
+- 戦績の時系列管理
+
+### デッキ管理
+
+- 自分のデッキライブラリの管理
+- デッキの色分類（赤・青・緑・黄・紫）
+- デッキごとの戦績追跡
+- デッキメモ機能
+
+### 統計分析
+
+- 総合勝率の計算
+- デッキ別パフォーマンス分析
+- 先攻・後攻別の勝率統計
+- 最近の戦績履歴表示
+
+### ダッシュボード
+
+- 戦績サマリーの一覧表示
+- 最近のバトル履歴
+- 各種統計データの可視化
+
+## 🛠 使用技術
+
+### フロントエンド
+
+- **Next.js 15** - React ベースのフルスタックフレームワーク
+- **React 19** - UI ライブラリ
+- **TypeScript** - 型安全な開発環境
+- **Tailwind CSS v4** - ユーティリティファーストの CSS フレームワーク
+- **Heroicons** - SVG アイコンライブラリ
+- **Recharts** - データ可視化ライブラリ
+
+### バックエンド
+
+- **Next.js API Routes** - サーバーサイド API
+- **SQLite** - 軽量データベース
+- **better-sqlite3** - Node.js 用 SQLite ドライバー
+- **date-fns** - 日付操作ライブラリ
+
+### 開発環境
+
+- **ESLint** - コード品質管理
+- **Turbopack** - 高速バンドラー（開発時）
+
+## 🚀 アプリの起動方法
+
+### 前提条件
+
+- Node.js 18.0 以上
+- npm、yarn、pnpm、または bun のいずれか
+
+### インストール手順
+
+1. **リポジトリのクローン**
+
+   ```bash
+   git clone git@github.com:mo-ri-regen/cnptcg-battle-tracker.git
+   cd cnptcg-battle-tracker
+   ```
+
+2. **依存関係のインストール**
+
+   ```bash
+   npm install
+   ```
+
+3. **開発サーバーの起動**
+
+   ```bash
+   npm run dev
+   ```
+
+4. **アプリケーションにアクセス**
+
+   ブラウザで [http://localhost:3000](http://localhost:3000) を開いてください。
+
+### その他のコマンド
+
+- **プロダクションビルド**
+
+  ```bash
+  npm run build
+  npm run start
+  ```
+
+- **コードリンティング**
+
+  ```bash
+  npm run lint
+  ```
+
+## 📁 プロジェクト構成
+
+```
+cnptcg-battle-tracker/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── api/               # API routes
+│   │   │   ├── battles/       # バトル記録API
+│   │   │   ├── decks/         # デッキ管理API
+│   │   │   ├── colors/        # デッキカラーAPI
+│   │   │   └── statistics/    # 統計API
+│   │   ├── decks/             # デッキ管理ページ
+│   │   └── (その他のページ)
+│   ├── components/            # Reactコンポーネント
+│   ├── lib/                   # ライブラリとユーティリティ
+│   │   ├── database.ts        # データベース設定
+│   │   ├── services/          # ビジネスロジック
+│   │   └── types.ts           # 型定義
+│   └── styles/                # スタイルファイル
+├── data/                      # SQLiteデータベースファイル
+└── public/                    # 静的ファイル
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🗃 データベース構成
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### テーブル構造
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **deck_colors**: デッキの色マスタ（赤・青・緑・黄・紫）
+- **my_decks**: ユーザーのデッキ情報
+- **battle_records**: バトル戦績記録
+- **opponent_deck_colors**: 対戦相手デッキの色情報（多対多関係）
 
-## Learn More
+### データ特徴
 
-To learn more about Next.js, take a look at the following resources:
+- SQLite によるローカルデータベース
+- トランザクション対応
+- 論理削除によるデータ保護
+- 外部キー制約による整合性保証
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎮 使い方
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **デッキ登録**: まず自分のデッキを「デッキ管理」で登録
+2. **バトル記録**: 対戦後にダッシュボードから戦績を記録
+3. **統計確認**: 蓄積されたデータから勝率や傾向を分析
+4. **デッキ改善**: 統計データを基にデッキ構築を最適化
 
-## Deploy on Vercel
+## 📱 対応環境
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **デスクトップ**: Chrome、Firefox、Safari、Edge
+- **モバイル**: iOS Safari、Android Chrome
+- **レスポンシブデザイン**: 各画面サイズに対応
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🤝 開発について
+
+このプロジェクトは個人のホビープロジェクトとして開発されています。バグ報告や機能提案があれば、issue からお知らせください。
+
+---
+
+CNP Trading Card Game の戦績管理にお役立てください！🎲
